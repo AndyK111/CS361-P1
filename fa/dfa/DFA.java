@@ -37,6 +37,7 @@ public class DFA implements DFAInterface
         DFAState<Character> to = nameMap.get(toState);
         if (from == null || to == null) return false; //Short-circuit check for existence of both states
 
+        if (from.hasTransition(onSymb)) from.clearTransition(onSymb);
         from.setTransition(onSymb, to);
         return true;
     }
@@ -58,7 +59,7 @@ public class DFA implements DFAInterface
     {
         if (nameMap.get(name) == null)
         {
-            DFAState<Character> newState = new DFAState<>("name");
+            DFAState<Character> newState = new DFAState<>(name);
             nameMap.put(name, newState);
             return true;
         }
@@ -94,7 +95,7 @@ public class DFA implements DFAInterface
     @Override
     public Set<Character> getSigma()
     {
-        return Set.of();
+        return alphabet;
     }
 
     @Override
@@ -119,6 +120,12 @@ public class DFA implements DFAInterface
         if (state == null) return false; //Short-circuit check for existence
 
         return (initialState == state);
+    }
+
+    @Override
+    public String toString()
+    {
+        throw new UnsupportedOperationException("TODO: Implement ToString");
     }
     //endregion
 }
