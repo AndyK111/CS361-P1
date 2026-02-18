@@ -31,7 +31,14 @@ public class DFA implements DFAInterface
     @Override
     public boolean addTransition(String fromState, String toState, char onSymb)
     {
-        throw new UnsupportedOperationException("TODO: Implement addTransition");
+        if (!alphabet.contains(onSymb)) return false; //Short-circuit check that onSymb is in alphabet/sigma
+
+        DFAState<Character> from = nameMap.get(fromState);
+        DFAState<Character> to = nameMap.get(toState);
+        if (from == null || to == null) return false; //Short-circuit check for existence of both states
+
+        from.setTransition(onSymb, to);
+        return true;
     }
 
     @Override
