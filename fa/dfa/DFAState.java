@@ -2,12 +2,13 @@ package fa.dfa;
 import fa.State;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @SuppressWarnings("unused")
 public class DFAState<S> extends State
 {
-    HashMap<S, DFAState<S>> transitionMap;
+    private final Map<S, DFAState<S>> transitionMap;
 
     /**
      * Creates a new instance of DFAState given a name
