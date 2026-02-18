@@ -27,7 +27,7 @@ public class DFAState<S> extends State
      * @param destination               The node that the transition will result in
      * @throws IllegalStateException    Thrown when there is an attempt to override an existing key/destination pair
      */
-    public void setTransition(Object key, DFAState<S> destination) throws IllegalStateException
+    public void setTransition(S key, DFAState<S> destination) throws IllegalStateException
     {
         throw new UnsupportedOperationException("TODO: Implement setTransition");
     }
@@ -37,7 +37,7 @@ public class DFAState<S> extends State
      * @param key                       The character consumed in a transition
      * @throws IllegalStateException    Thrown when there is an attempt to clear a key/destination pair that does not exist
      */
-    public void clearTransition(Object key) throws IllegalStateException
+    public void clearTransition(S key) throws IllegalStateException
     {
         throw new UnsupportedOperationException("TODO: Implement clearTransition");
     }
@@ -48,7 +48,7 @@ public class DFAState<S> extends State
      * @return                          The DFAState that results when traversing a particular transition
      * @throws NoSuchElementException   Thrown when there is an attempt to get the destination of a key/destination pair that does not exist
      */
-    public DFAState<S> getTransition(Object key) throws NoSuchElementException
+    public DFAState<S> getTransition(S key) throws NoSuchElementException
     {
         throw new UnsupportedOperationException("TODO: Implement getTransition");
     }
@@ -58,7 +58,7 @@ public class DFAState<S> extends State
      * @param key   The character consumed in a transition
      * @return      True if there is a key/destination pair defined for this key
      */
-    public boolean hasTransition(Object key)
+    public boolean hasTransition(S key)
     {
         throw new UnsupportedOperationException("TODO: Implement hasTransition");
     }
