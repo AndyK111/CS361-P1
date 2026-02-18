@@ -27,9 +27,11 @@ public class DFAState<S> extends State
      * @param destination               The node that the transition will result in
      * @throws IllegalStateException    Thrown when there is an attempt to override an existing key/destination pair
      */
-    public void setTransition(S key, DFAState<S> destination) throws IllegalStateException
+    public void setTransition(S key, DFAState<S> destination) throws UnsupportedOperationException
     {
-        throw new UnsupportedOperationException("TODO: Implement setTransition");
+        if (transitionMap.containsKey(key)) throw new UnsupportedOperationException("Attempted to override existing delta");
+
+        transitionMap.put(key, destination);
     }
 
     /**
@@ -39,7 +41,9 @@ public class DFAState<S> extends State
      */
     public void clearTransition(S key) throws IllegalStateException
     {
-        throw new UnsupportedOperationException("TODO: Implement clearTransition");
+        if (!transitionMap.containsKey(key)) throw new UnsupportedOperationException("Attempted to clear non-existent delta");
+
+        transitionMap.remove(key);
     }
 
     /**
@@ -50,7 +54,9 @@ public class DFAState<S> extends State
      */
     public DFAState<S> getTransition(S key) throws NoSuchElementException
     {
-        throw new UnsupportedOperationException("TODO: Implement getTransition");
+        if (!transitionMap.containsKey(key)) throw new NoSuchElementException("Attempted to get non-existent delta");
+
+        return transitionMap.get(key);
     }
 
     /**
@@ -60,7 +66,7 @@ public class DFAState<S> extends State
      */
     public boolean hasTransition(S key)
     {
-        throw new UnsupportedOperationException("TODO: Implement hasTransition");
+        return transitionMap.containsKey(key);
     }
 
     /**
@@ -68,7 +74,7 @@ public class DFAState<S> extends State
      */
     public void clearAllTransitions()
     {
-        throw new UnsupportedOperationException("TODO: Implement clearAllTransitions");
+        transitionMap.clear();
     }
     //endregion
 }
