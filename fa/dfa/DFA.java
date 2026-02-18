@@ -7,7 +7,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-@SuppressWarnings({"unused convert", "FieldCanBeLocal"}) //Remove when fully implemented
+@SuppressWarnings({"unused convert", "FieldCanBeLocal", "MismatchedQueryAndUpdateOfCollection"})
+//Remove when fully implemented
 public class DFA implements DFAInterface
 {
     //region Fields
@@ -30,43 +31,57 @@ public class DFA implements DFAInterface
     @Override
     public boolean addTransition(String fromState, String toState, char onSymb)
     {
-        return false;
+        throw new UnsupportedOperationException("TODO: Implement addTransition");
+    }
+
+    @Override
+    public boolean accepts(String s)
+    {
+        throw new UnsupportedOperationException("TODO: Implement accepts");
     }
 
     @Override
     public DFA swap(char symb1, char symb2)
     {
-        return null;
+        throw new UnsupportedOperationException("TODO: Implement swap");
     }
 
     @Override
     public boolean addState(String name)
     {
+        if (nameMap.get(name) == null)
+        {
+            DFAState<Character> newState = new DFAState<>("name");
+            nameMap.put(name, newState);
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean setFinal(String name)
     {
-        return false;
+        DFAState<Character> state = nameMap.get(name);
+        if (state == null) return false; //Short-circuit check for existence
+
+        finalStates.add(state);
+        return true;
     }
 
     @Override
     public boolean setStart(String name)
     {
-        return false;
+        DFAState<Character> state = nameMap.get(name);
+        if (state == null) return false; //Short-circuit check for existence
+
+        initialState = state;
+        return true;
     }
 
     @Override
     public void addSigma(char symbol)
     {
-
-    }
-
-    @Override
-    public boolean accepts(String s)
-    {
-        return false;
+        alphabet.add(symbol);
     }
 
     @Override
@@ -78,19 +93,25 @@ public class DFA implements DFAInterface
     @Override
     public State getState(String name)
     {
-        return null;
+        return nameMap.get(name);
     }
 
     @Override
     public boolean isFinal(String name)
     {
-        return false;
+        DFAState<Character> state = nameMap.get(name);
+        if (state == null) return false; //Short-circuit check for existence
+
+        return finalStates.contains(state);
     }
 
     @Override
     public boolean isStart(String name)
     {
-        return false;
+        DFAState<Character> state = nameMap.get(name);
+        if (state == null) return false; //Short-circuit check for existence
+
+        return (initialState == state);
     }
     //endregion
 }
