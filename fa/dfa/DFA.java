@@ -56,9 +56,39 @@ public class DFA implements DFAInterface
     }
 
     @Override
+    /**
+	 * Creates a deep copy of this DFA
+	 * which transitions labels are
+	 * swapped between symbols symb1
+	 * and symb2.
+	 * @return a copy of this DFA
+	 */
     public DFA swap(char symb1, char symb2)
     {
-        throw new UnsupportedOperationException("TODO: Implement swap");
+        DFA result = new DFA();
+        for(char c : this.getSigma()){//Σ
+            result.addSigma(c);
+        }
+        for(DFAState<Character> state : this.nameMap.values()){//Q
+            result.addState(state.getName());
+        }
+        result.setStart(this.initialState.getName());//q0
+        for(DFAState<Character> state : this.finalStates){//F
+            result.setFinal(state.getName());
+        }
+        for(DFAState<Character> fromState : this.nameMap.values()){//δ
+            for(char c : this.alphabet){
+                if(fromState.hasTransition(c)){
+                    DFAState<Character> toState = fromState.getTransition(c);
+                    char currentTransition = c;
+                    //check to see if current transition is one of our targets + swap if so
+                    if(c == symb1) currentTransition = symb2;
+                    else if(c == symb2) currentTransition = symb1;
+                    result.addTransition(fromState.getName(), toState.getName(), currentTransition);
+                }
+            }
+        }
+        return result;
     }
 
     @Override
