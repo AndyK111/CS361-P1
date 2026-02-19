@@ -1,11 +1,6 @@
 package fa.dfa;
-
 import fa.State;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @SuppressWarnings({"unused convert", "FieldCanBeLocal", "MismatchedQueryAndUpdateOfCollection"})
 //Remove when fully implemented
@@ -21,9 +16,9 @@ public class DFA implements DFAInterface
     //region Constructors
     public DFA()
     {
-        this.nameMap = new HashMap<>();
-        this.alphabet = new HashSet<>();
-        this.finalStates = new HashSet<>();
+        this.nameMap = new LinkedHashMap<>();
+        this.alphabet = new LinkedHashSet<>();
+        this.finalStates = new LinkedHashSet<>();
     }
     //endregion
 
@@ -125,7 +120,63 @@ public class DFA implements DFAInterface
     @Override
     public String toString()
     {
-        throw new UnsupportedOperationException("TODO: Implement ToString");
+        StringBuilder toReturn = new StringBuilder();
+        Set<String> nameSet = nameMap.keySet();
+
+        //Build the Q section
+        StringJoiner Q = new StringJoiner(" ", "{", "}");
+        for (String s : nameSet)
+        {
+            Q.add(s);
+        }
+        toReturn.append("Q=").append(Q).append("\n");
+
+        //Build the Sigma section
+        StringJoiner sigma = new StringJoiner(" ", "{", "}");
+        for (Character c : alphabet)
+        {
+            sigma.add(c.toString());
+        }
+        toReturn.append("Sigma = ").append(sigma).append("\n");
+
+        //Build the delta section
+        toReturn.append("delta =\n");
+        //Prints the legend of alphabet on top row
+        for (Character c : alphabet)
+        {
+            toReturn.append("\t").append(c);
+        }
+        toReturn.append("\n");
+
+        //Prints a row of connections on each character here
+        for (DFAState<Character> s : nameMap.values())
+        {
+            toReturn.append(s.getName());
+            for (Character c : alphabet)
+            {
+                if (s.hasTransition(c))
+                {
+                    toReturn.append("\t").append(s.getTransition(c).getName());
+                }
+            }
+            toReturn.append("\n");
+        }
+
+        //Build the q0 section
+        toReturn.append("q0 = ");
+        toReturn.append(initialState);
+        toReturn.append("\n");
+
+        //Build the F section
+        StringJoiner F = new StringJoiner(" ", "{", "}");
+        for (DFAState<Character> s : finalStates)
+        {
+            F.add(s.toString());
+        }
+        toReturn.append("F=");
+        toReturn.append(F).append("\n");
+
+        return toReturn.toString();
     }
     //endregion
 }
