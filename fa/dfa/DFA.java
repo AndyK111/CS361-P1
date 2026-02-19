@@ -40,7 +40,19 @@ public class DFA implements DFAInterface
     @Override
     public boolean accepts(String s)
     {
-        throw new UnsupportedOperationException("TODO: Implement accepts");
+        DFAState<Character> currentState = initialState;
+
+        for (Character c : s.toCharArray())
+        {
+            if (currentState.hasTransition(c))
+            {
+                currentState = currentState.getTransition(c);
+            }
+            else return false; //Short-circuit undefined transition
+        }
+
+        //Check if on final state
+        return finalStates.contains(currentState);
     }
 
     @Override
