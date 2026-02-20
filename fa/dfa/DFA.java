@@ -4,6 +4,12 @@ import java.util.*;
 
 @SuppressWarnings({"unused convert", "FieldCanBeLocal", "MismatchedQueryAndUpdateOfCollection"})
 //Remove when fully implemented
+/**
+ * This class models a discrete finite automata by storing states and their respective status
+ * as DFAState objects contained within a hashmap. This class allows for each element of the
+ * 5-tuple to be represented through an object-oriented lens
+ * @author Andy Kempf, Sam Kleman
+ */
 public class DFA implements DFAInterface
 {
     //region Fields
@@ -56,13 +62,6 @@ public class DFA implements DFAInterface
     }
 
     @Override
-    /**
-	 * Creates a deep copy of this DFA
-	 * which transitions labels are
-	 * swapped between symbols symb1
-	 * and symb2.
-	 * @return a copy of this DFA
-	 */
     public DFA swap(char symb1, char symb2)
     {
         DFA result = new DFA();

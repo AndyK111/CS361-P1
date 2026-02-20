@@ -1,11 +1,16 @@
 package fa.dfa;
 import fa.State;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
 @SuppressWarnings("unused")
+/**
+ * This class extends the abstract class State.java and adds the functionality of DFA transitions
+ * linking states to one another using a hash map. State objects represent the various states
+ * of the DFA and their transitions.
+ * @author Andy Kempf, Sam Kleman
+ */
 public class DFAState<S> extends State
 {
     private final Map<S, DFAState<S>> transitionMap;
