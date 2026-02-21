@@ -4,11 +4,11 @@
 * Date: 2/20/26
 * Andy Kempf, Sam Kleman
 ****************
-OVERVIEW:
+# OVERVIEW:
 This program models a deterministic finite automata using individual objects to represent
 each state and their respective transitions, stored together using a hash map. 
 
-INCLUDED FILES:
+# INCLUDED FILES:
 
 * README - this file
 * DFA.java - class representing the DFA as a whole
@@ -18,7 +18,7 @@ INCLUDED FILES:
 * State.java - simple abstract class outlining state objects
 * DFATest.java - driver class demonstrating functionality
 
-COMPILING AND RUNNING:
+# COMPILING AND RUNNING:
 From the root directory, first compile the driver class + dependencies using:
 $ javac ./test/dfa/DFATest.java
 
@@ -27,60 +27,22 @@ $ java ./test/dfa/DFATest.java
 
 Results are output to the console.
 
-PROGRAM DESIGN AND IMPORTANT CONCEPTS:
-This is the sort of information someone who really wants to
-understand your program - possibly to make future enhancements -
-would want to know.
-Explain the main concepts and organization of your program so that
-the reader can understand how your program works. This is not a repeat
-of javadoc comments or an exhaustive listing of all methods, but an
-explanation of the critical algorithms and object interactions that make
-up the program.
-Explain the main responsibilities of the classes and interfaces that make
-up the program. Explain how the classes work together to achieve the
-program
-goals. If there are critical algorithms that a user should understand,
-explain them as well.
-If you were responsible for designing the program's classes and choosing
-how they work together, why did you design the program this way? What, if
-anything, could be improved?
+# PROGRAM DESIGN AND IMPORTANT CONCEPTS:
+The program can be divided into two classes that do the heavy lifting, DFA & DFAState. State is a generic class so if someone wishes they could use it with an alphabet of whatever object they chose. Within the class is a HashTable that is responsible for forming the transition function of any given node. The DFA class holds the responsibility of containing the total number of nodes, what the alphabet for these nodes is, and the ability to actually traverse between the nodes. It is important here that a LinkedHashMap is used because it will preserve the order of elements added to it, so when it comes time to print data out, we are able to do so in the proper order.
 
-TESTING:
+# TESTING:
 In order to make sure our program worked as expected, we utilized the 
 JUnit tests in DFATest.java, creating multiple instances of DFAs
 with differing specifications to ensure robust functionality across
 multiple different configurations. 
 
-DISCUSSION:
-Discuss the issues you encountered during programming (development)
-and testing. What problems did you have? What did you have to research
-and learn on your own? What kinds of errors did you get? How did you
-fix them?
-What parts of the project did you find challenging? Is there anything
-that finally "clicked" for you in the process of working on this project?
-EXTRA CREDIT:
-If the project had opportunities for extra credit that you attempted,
-be sure to call it out so the grader does not overlook it.
+# DISCUSSION:
+DFA's themselves are fairly simple machines, the specification for what a DFA does and how it does it is relatively tight. I would say the most difficult part of the project (for me) was the toString method. The logic and data organization that needed to happen to actually make the DFA function was fairly straight forward. We can provide the DFAState with a character, it will do a check on a hash table, and give us the node that we should go to next, after doing that until we exhaust the input, we simply need to check if the current node is contained within the final stated set.
 
-SOURCES:
-All sources used outside of lecture notes, slides, and the textbook need
-to
-be cited here. If you used websites, used GenAI, asked your dad or your
-boss
-or your roommate for help then you must cite those resources. I am not
-concerned if you use proper APA or MLA or another format as long as you
-include
-all relevant information. If it is a person or GenAI that you referenced,
-be
-sure to include who you talked to (or which AI you accessed), when you
-talked
-to them, and what help they provided (e.g. Student, Awesome. Private
-communication, 21 January 2026. Discussed how polymorphism allows the
-return
-types of methods implemented in a class to be different from the class
-specified
-in the interface as long as the <type in implementation> “is-a” <type in
-interface>.)
+The hardest part of this project, by far (for me) was the toString method. Not because it was technically difficult but because it was a very specific format that was required and matching that exactly proved to be somewhat difficult. 
+
+# SOURCES:
+- 2/18/26 : Asked chatGPT if there was an equivalent to HashSet/HashMap that preserved the order of elements inserted. That is how I found out about LinkedHashSet/LinkedHashMap.
 --------------------------------------------------------------------------
 --
 All content in a README file is expected to be written in clear English
